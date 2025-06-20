@@ -1,22 +1,20 @@
 import { AxiosError } from "axios";
 import { ApiResponse } from "../../../infrastructure/interfaces/api.response";
-import { CountryResponse } from "../../../infrastructure/interfaces/country.response";
-import { CountryModel } from "../../models/country.model";
+import { RoleResponse } from "../../../infrastructure/interfaces/role.response";
+import { RoleModel } from "../../models/role.model";
 import { ApiErrorResponse } from "../../../infrastructure/interfaces/api-error.response";
 import { personsApi } from "../../api/persons.api";
-import { dataTagErrorSymbol } from "@tanstack/react-query";
 
-export const createCountryAction = async (
-    country: CountryModel
-): Promise<ApiResponse<CountryResponse>> => {
+export const editRoleAction = async (
+    role: RoleModel, roleId: string
+): Promise<ApiResponse<RoleResponse>> => {
 
     try {
 
-
         const { data } = await personsApi
-            .post<ApiResponse<CountryResponse>>(
-                "/countries",
-                country
+            .put<ApiResponse<RoleResponse>>(
+                `/roles/${roleId}`,
+                role
             );
 
         return data;
@@ -34,4 +32,3 @@ export const createCountryAction = async (
     }
 
 }
-
